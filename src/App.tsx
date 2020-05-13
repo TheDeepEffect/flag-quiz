@@ -1,26 +1,27 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import { observer } from "mobx-react";
+import "./App.css";
+import { Router, Switch } from "react-router-dom";
+import { history, routes } from "./config/routes";
+import PrivateRoute from "./container/PrivateRoute";
+import PublicRoute from "./container/PublicRoute";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+const App: React.FC = observer(() => {
+	return (
+		<Router history={history}>
+			<div className="App ">
+				<div className="blur"></div>
+				<Switch>
+					{Object.keys(routes).map((key) => {
+						const value = routes[key];
+						const { isPrivate } = value;
+						const SelectedRoute = isPrivate ? PrivateRoute : PublicRoute;
+						return <SelectedRoute {...value} key={key} />;
+					})}
+				</Switch>
+			</div>
+		</Router>
+	);
+});
 
 export default App;
