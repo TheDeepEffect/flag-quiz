@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import { useQuery } from "@apollo/react-hooks";
 import { GET_COUNTRIES } from "../queries/query";
 import {
@@ -7,8 +7,8 @@ import {
 } from "./../generated/getCountries";
 import LogoutButton from "../components/LogoutButton";
 import Game from "../components/Game";
-
-// @todo : Add Game component jema onCLick and randomness handle thase and ema bdha flags mokli devana...
+import { rootContext } from "../store";
+import NavButton from "../components/NavButton";
 
 type IGamePageProps = {
 	loading?: boolean;
@@ -18,11 +18,11 @@ type IGamePageProps = {
 const GamePage: React.FC<IGamePageProps> = ({ loading, flags }) => {
 	return (
 		<div className="card">
-			<div className="game">
+			<div>
 				<h1>{loading ? "Loading..." : "Flag Quiz"}</h1>
 				<Game flags={flags} />
 			</div>
-
+			<NavButton />
 			<LogoutButton />
 		</div>
 	);

@@ -1,14 +1,18 @@
 import React from "react";
+import { Button } from "@material-ui/core";
 
 type ICardProps = {
-	handleClick: (event: React.MouseEvent<HTMLImageElement, MouseEvent>) => void;
+	handleClick: () => void;
 	flag: string | undefined;
+	isClicked: boolean;
 };
 
-const FlagCard: React.FC<ICardProps> = ({ handleClick, flag }) => {
+const FlagCard: React.FC<ICardProps> = ({ handleClick, flag, isClicked }) => {
 	return (
 		<div className="flag">
-			<img src={flag} onClick={handleClick} />
+			<Button onClick={handleClick} disabled={isClicked}>
+				<img src={flag} alt="flag" />
+			</Button>
 		</div>
 	);
 };

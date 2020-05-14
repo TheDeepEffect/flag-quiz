@@ -6,6 +6,7 @@ import { GameStore } from "./GameStore";
 type IAttempt = {
 	score: number;
 	total: number;
+	[key: string]: number;
 };
 
 type IInitialState = {
@@ -30,9 +31,12 @@ export class RootStore {
 
 	addUser = (name: string) => {
 		this.setState({ user: name });
-		localStorage.setItem(key, JSON.stringify(this.state));
+		if (!localStorage.getItem(key)) {
+			localStorage.setItem(key, JSON.stringify(this.state));
+		}
 	};
 	addScore = (isScored: boolean) => {
+		console.log(isScored);
 		this.setState({
 			attempts: {
 				score: isScored
